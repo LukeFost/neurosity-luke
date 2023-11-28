@@ -1,3 +1,8 @@
 
 hello_world/.env
 hello_world/package-lock.json
+py_model/raw_eeg_data.json
+py_model/__pycache__/app.cpython-310.pyc
+py_model/__pycache__/common.cpython-310.pyc
+py_model/__pycache__/gui.cpython-310.pyc
+py_model/imaging/first_plot.png

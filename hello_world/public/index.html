@@ -5,6 +5,10 @@
   </head>
   <body>
     <button id="trainingButton">Start Training</button>
+    <br />
+    <button id="relaxedButton">Set Relaxed</button>
+    <button id="focusedButton">Set Focused</button>
+    <button id="sleepyButton">Set Sleepy</button>
 
     <script>
       const button = document.getElementById("trainingButton");
@@ -23,6 +27,26 @@
           })
           .catch((error) => console.error("Error:", error));
       });
+
+      // Add event listeners for classification buttons
+      document
+        .getElementById("relaxedButton")
+        .addEventListener("click", () => setClassification("relaxed"));
+      document
+        .getElementById("focusedButton")
+        .addEventListener("click", () => setClassification("focused"));
+      document
+        .getElementById("sleepyButton")
+        .addEventListener("click", () => setClassification("sleepy"));
+
+      function setClassification(classification) {
+        fetch(`/set-classification?classification=${classification}`, {
+          method: "POST",
+        })
+          .then((response) => response.text())
+          .then((message) => console.log(message))
+          .catch((error) => console.error("Error:", error));
+      }
     </script>
   </body>
 </html>

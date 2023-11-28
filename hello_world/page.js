@@ -19,6 +19,21 @@ app.get("/control-training", async (req, res) => {
   }
 });
 
+app.post("/set-classification", async (req, res) => {
+  const classification = req.query.classification;
+
+  try {
+    await axios.post("http://127.0.0.1:3002/update-classification", {
+      classification,
+    });
+
+    res.send(`Classification set to: ${classification}`);
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    res.status(500).send("Server error");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Web server running at http://localhost:${port}`);
 });

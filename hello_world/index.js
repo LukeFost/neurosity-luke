@@ -47,12 +47,16 @@ const main = async () => {
 
 main();
 
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
+
 app.use(express.json());
 
 let brainwaveData = [];
+let subscription;
 app.post("/train", async (req, res) => {
   const action = req.query.action; // 'start' or 'stop'
-  let subscription;
 
   if (action === "start") {
     res.json({ message: "Training started" });
