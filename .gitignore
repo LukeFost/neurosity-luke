@@ -6,3 +6,11 @@ py_model/__pycache__/app.cpython-310.pyc
 py_model/__pycache__/common.cpython-310.pyc
 py_model/__pycache__/gui.cpython-310.pyc
 py_model/imaging/first_plot.png
+py_model/1_raw_eeg_data.json
+py_model/2_raw_eeg_data.json
+py_model/hyperband/eeg_lstm_tuning/trial_0000/checkpoint.data-00000-of-00001
+hyperband
+*.png
+raw_eeg_data.json
+py_model/cleaned_normalized_eeg_data.json
+*.json
