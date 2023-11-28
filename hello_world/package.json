@@ -1,0 +1,20 @@
+{
+  "name": "hello_world",
+  "version": "1.0.0",
+  "description": "My first application using the Neurosity sdk",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"node index.js\" \"node page.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luke Foster",
+  "license": "MIT",
+  "dependencies": {
+    "@neurosity/sdk": "^6.5.10",
+    "axios": "^1.6.2",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "robotjs": "^0.6.0"
+  }
+}

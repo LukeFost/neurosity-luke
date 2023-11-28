@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Train Attractiveness</title>
+  </head>
+  <body>
+    <button id="trainingButton">Start Training</button>
+
+    <script>
+      const button = document.getElementById("trainingButton");
+      let isTraining = false;
+
+      button.addEventListener("click", () => {
+        const action = isTraining ? "stop" : "start";
+        fetch(`/control-training?action=${action}`)
+          .then((response) => response.text())
+          .then((message) => {
+            console.log(message);
+            button.textContent = isTraining
+              ? "Start Training"
+              : "Stop Training";
+            isTraining = !isTraining;
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    </script>
+  </body>
+</html>
