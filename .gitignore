@@ -34,3 +34,7 @@ mc_server/server.properties
 mc_server/spigot.yml
 py_model/results/log_subject1.txt
 py_model/results/sub_result.txt
+py_model/results/
+py_model/encoder.joblib
+py_model/lstm_model_best.keras
+py_model/scaler.joblib
