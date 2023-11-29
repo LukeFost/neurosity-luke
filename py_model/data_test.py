@@ -5,14 +5,14 @@ from keras.utils import to_categorical
 from keras.models import load_model
 
 # Load the trained LSTM model
-model = load_model('lstm_model.keras')
+model = load_model('lstm_model_best.keras')
 
 # Load the scaler and encoder that were fitted on the training data
 scaler = joblib.load('scaler.joblib')
 encoder = joblib.load('encoder.joblib')
 
 # Load the new data from JSON file
-new_data = pd.read_json('cleaned_normalized_eeg_data.json')
+new_data = pd.read_json('combined_eeg_data.json')
 
 # Preprocess the new data, similar to how the training data was preprocessed
 # Flatten the data to 2D for scaling (time steps * samples, features)
