@@ -38,3 +38,6 @@ py_model/results/
 py_model/encoder.joblib
 py_model/lstm_model_best.keras
 py_model/scaler.joblib
+py_model/lstm_model_best.keras
+*.joblib
+*.joblib

@@ -8,6 +8,7 @@ const {
 } = require("mineflayer-pathfinder");
 
 let lastPosition = null;
+let lastPitch = null;
 let lastYaw = null;
 
 const bot = mineflayer.createBot({
@@ -59,29 +60,59 @@ function getTurnDirection(lastYaw, currentYaw) {
   return ""; // No significant turn
 }
 
+function getPitchDirection(lastPitch, currentPitch) {
+  if (currentPitch > lastPitch) return "_lookDown";
+  if (currentPitch < lastPitch) return "_lookUp";
+  return "";
+}
+
+function getMovementDirection(lastPosition, currentPosition, currentYaw) {
+  if (!lastPosition) return "";
+
+  // Calculate the difference in position
+  const dx = currentPosition.x - lastPosition.x;
+  const dz = currentPosition.z - lastPosition.z;
+
+  // Calculate the angle of movement from the difference in position
+  let moveAngle = Math.atan2(-dz, dx);
+
+  // Adjust the moveAngle based on the player's current yaw
+  moveAngle = (moveAngle - currentYaw + Math.PI * 2) % (Math.PI * 2);
+
+  // Determine the direction of movement
+  if (moveAngle < Math.PI / 4 || moveAngle > (7 * Math.PI) / 4) return "_right";
+  if (moveAngle >= Math.PI / 4 && moveAngle < (3 * Math.PI) / 4)
+    return "_forward";
+  if (moveAngle >= (3 * Math.PI) / 4 && moveAngle < (5 * Math.PI) / 4)
+    return "_left";
+  if (moveAngle >= (5 * Math.PI) / 4 && moveAngle < (7 * Math.PI) / 4)
+    return "_backward";
+
+  return "";
+}
+
 setInterval(() => {
   if (!followedPlayer) return;
 
-  const currentPos = followedPlayer.position;
+  const currentPosition = followedPlayer.position;
   const currentYaw = followedPlayer.yaw;
   let classification = "not_moving";
 
-  // Determine if the player has moved
-  if (lastPosition && currentPos.distanceTo(lastPosition) > 0.1) {
+  if (lastPosition && currentPosition.distanceTo(lastPosition) > 0.1) {
     classification = "walking";
-  }
+    classification += getMovementDirection(
+      lastPosition,
+      currentPosition,
+      currentYaw
+    );
 
-  // Determine if the player has turned
-  if (lastYaw !== null) {
-    const turnDirection = getTurnDirection(lastYaw, currentYaw);
-    if (Math.abs(currentYaw - lastYaw) > Math.PI / 8) {
-      classification += turnDirection;
+    if (followedPlayer.isJumping) {
+      classification += "_jumping";
     }
   }
 
-  // Update classification
   updateClassification(classification);
 
-  lastPosition = currentPos.clone();
+  lastPosition = currentPosition.clone();
   lastYaw = currentYaw;
-}, 500); // Check every second, adjust as needed
+}, 500);
